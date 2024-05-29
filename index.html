@@ -9,7 +9,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="./assets/works.js" defer></script>
+	<script type="module" src="./assets/works.js" defer></script>
+	<script type="module" src="./assets/api.js" defer></script>
 </head>
 <body>
 <header>
@@ -18,7 +19,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<li><a href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -37,6 +38,9 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets</h2>
+		<div class="filters">
+			<button id="all" class="button button-selected">Tous</button>
+		</div>
 		<div class="gallery">
 
 		</div>
@@ -55,7 +59,6 @@
 		</form>
 	</section>
 </main>
-
 <footer>
 	<nav>
 		<ul>
@@ -63,5 +66,7 @@
 		</ul>
 	</nav>
 </footer>
+<script src="./assets/api.js" defer></script>
+<script src="./assets/works.js" defer></script>
 </body>
 </html>
