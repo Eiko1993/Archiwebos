@@ -127,6 +127,69 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+.projects {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
+.modal{
+	position:fixed;
+	top:0;
+	left:0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.edittitle{
+	font-family: "Work Sans";
+	color: black;
+}
+
+.button-edit{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.fa-x{
+	position:absolute;
+	right:500px;
+	color: black;
+	z-index: 1;
+	height:10px;
+}
+
+.image-edit{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	padding-top:10px;
+	padding-bottom:10px;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+
+}
+
+.image-edit img{
+	width:100%;
+	object-fit: cover;
+	height:75px;
+}
+
+.modal-wrap{
+	background-color: white;
+	width: 600px;
+	height: 600px;
+	padding: 20px;
+	overflow: auto;
+	align-items: center;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -137,12 +200,15 @@ li:hover {
 
 .filters {
 	text-align: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 .button{
 	border-radius: 60px;
 	border-color: #1D6154;
-	width: 100px;
 	height: 37px;
 	padding: 15px;
 	gap: 15px;

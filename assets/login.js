@@ -1,40 +1,37 @@
 /*Variables*/
-
-const email = document.querySelector("form #email");
-const password = document.querySelector("form #password");
+const log = document.querySelector("#login")
 const form = document.querySelector("form");
-
-
 /*Connexion*/
 
-async function logIn(){
-    form.addEventListener("submit",function(e) {
-        e.preventDefault();
-        const logUser = {
-            email:e.target.querySelector("[name=email]").value,
-            password:e.target.querySelector("[name=password]").value,
-        };
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-        
-        const login = JSON.stringify(logIn);
+    let email = document.querySelector('form #email').value;
+    let password = document.querySelector('form #password').value;
 
-        fetch("http://localhost:5678/api/users/login", {
-            method: "POST" ,
-            headers: {"Content-Type": "application/json"},
-            body: logU
-        });
-        
-        if (logUser.email.value === "" || logUser.password.value === ""){
- 
-            throw new Error(`L'un des deux champs est vide`)
-        
-        };
-
-
+ const user = fetch("http://localhost:5678/api/users/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "email": email,
+            "password": password,
+        })
+    })
+    .then(function(response){
+        if(response.ok){
+            console.log('ok');
+            window.localStorage.setItem("login",user);
+            window.location.href = "index.html";
+        } else {
+            console.log('erreur');
+            const error = document.createElement("p");
+            error.innerText ="Erreur dans l’identifiant ou le mot de passe";
+            error.appendChild(log);
         }
-        
-    )
-    /*window.localStorage.setItem("form", logU);*/
-}
-
-logIn();
+    })
+    .catch(error =>
+        console.log('error: ' + error)
+    );
+})

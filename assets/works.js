@@ -1,17 +1,18 @@
 /* Afficher les travaux */
 
+import { getWorks, getCategories } from "./api.js";
 
 const gallery = document.querySelector(".gallery");
 const filters = document.querySelector(".filters");
+const projectsNew = document.querySelector(".projects");
+const logChange = document.querySelector(".login");
+let user = window.localStorage.getItem("login");
 
-/*Afficher traveaux*/
 
-async function getWorks(){
-    const works = await fetch("http://localhost:5678/api/works");
-    return worksJson = await works.json();
+if (!user) {
+    console.log("Oups c'est vide");
 }
-getWorks();
-/*import { getWorks } from "/api.js";*/
+/*Afficher traveaux*/
 
 async function displayWorks(){
 
@@ -40,12 +41,6 @@ function createWorks(work){
 }
 
 /*Afficher categories*/
-async function getCategories(){
-    const categories = await fetch("http://localhost:5678/api/categories");
-    return categoriesJson = await categories.json();
-}
-getCategories();
-/*import {getCategories} from "/api.js";*/
 
 async function displayCategories() {
     const arrayCategories = await getCategories(); 
@@ -58,13 +53,14 @@ async function displayCategories() {
     })
 }
 displayCategories();
+
 /*filter par categories*/
 async function filterCategory(){
     const projects = await getWorks();
     const buttons = document.querySelectorAll(".filters button");
     buttons.forEach(button => {
         button.addEventListener("click", (e) => {
-            btnId = e.target.id; //Affiche l'id du bouton sur lequel on clique//
+            const btnId = e.target.id; //Affiche l'id du bouton sur lequel on clique//
             gallery.innerHTML = "";
             if (btnId !== "0") {
                 const projectsCategory = projects.filter((work) => {
@@ -73,12 +69,60 @@ async function filterCategory(){
                 projectsCategory.forEach(work => {
                     createWorks(work);
                 });
-            }else{
+            } else {
                 displayWorks();
             }
-
-
         })
     })
 }
 filterCategory();
+
+/*Modifier page*/
+
+if (user !== null) {
+    logChange.innerText = "logout";
+    /*const  projectsImg = document.createElement("i");
+    projectsImg.classList.add("fa-regular fa-pen-to-square");
+    projectsNew.appendChild(projectsImg);*/
+    const projectChange = document.createElement("a");
+    projectChange.innerText = "modifier";
+    projectChange.setAttribute("href","#modal");
+    projectChange.classList.add("js-modal");
+    projectsNew.appendChild(projectChange);
+
+}
+
+let modal = null;
+
+const projectEdit = function (e) {
+    e.preventDefault();
+    const target = document.querySelector(e.target.getAttribute("href"));
+    target.style.display = null;
+    target.removeAttribute("aria-hidden");
+    target.setAttribute("aria-modal","true");
+    modal = target;
+    modal.addEventListener("click", closeEdit);
+    modal.querySelector(".js-modal-close").addEventListener("click",closeEdit);
+    modal.querySelector(".js-modal-stop").addEventListener("click",stopPropagation);
+}
+
+const closeEdit = function (e) {
+    if (modal === null) return;
+    e.preventDefault();
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden","true");
+    modal.removeAttribute("aria-modal");
+    modal.removeEventListener("click", closeEdit);
+    modal.querySelector(".js-modal-close").removeEventListener("click",closeEdit);
+    modal.querySelector(".js-modal-stop").removeEventListener("click",stopPropagation);
+    modal = null;
+}
+
+const stopPropagation = function(e){
+    e.stopPropagation();
+}
+
+document.querySelectorAll(".js-modal").forEach(a => {
+    a.addEventListener("click", projectEdit);
+
+})
