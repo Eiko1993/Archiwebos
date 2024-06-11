@@ -8,6 +8,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+	integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
@@ -40,22 +43,31 @@
 		</div>
 		<aside id="modal" class="modal" aria-hidden="true" role="dialog" style="display: none;">
 			<div class="modal-wrap js-modal-stop">
-				<button class="js-modal-close fa-x"><i class="fa-solid fa-x"></i></button>
-				<h2 class="edittitle">Galerie photo</h3>
-				<div class="image-edit">
-					<img src="/assets/images/abajour-tahina.png">
-					<img src="/assets/images/appartement-paris-v.png">
-					<img src="/assets/images/restaurant-sushisen-londres.png">
-					<img src="/assets/images/la-balisiere.png">
-					<img src="/assets/images/structures-thermopolis.png">
-					<img src="/assets/images/appartement-paris-x.png">
-					<img src="/assets/images/le-coteau-cassis.png">
-					<img src="/assets/images/villa-ferneze.png">
-					<img src="/assets/images/appartement-paris-xviii.png">
-					<img src="/assets/images/bar-lullaby-paris.png">
-					<img src="/assets/images/hotel-first-arte-new-delhi.png">
+				<button class="js-modal-close  fa-solid fa-xmark"></button>
+				<div class="works-modal">
+					<h2 class="edittitle">Galerie photo</h3>
+					<div class="image-edit"></div>
+					<button class="button button-selected button-edit">Ajouter une photo</button>
 				</div>
-				<button class="button button-selected button-edit">Ajouter une photo</button>
+				<div class="form-modal">
+					<button class="btn-back fa-solid fa-arrow-left"></button>
+					<h2>Ajout photo</h2>
+					<form>
+						<div class="containerFile">
+							<button class="js-modal-close  fa-solid fa-xmark"></button>
+							<span><i class="fa-regular fa-image"></i></span>
+							<label for="file">+Ajouter photo</label>
+							<input type="file" id="file" name="image">
+							<img src="#" alt="Apercu de l'image">
+							<p>jpg,png: 4mo max</p>
+						</div>
+						<label for="title">Titre</label>
+						<input type="text" id="title" name="title">
+						<label for="category">Catégorie</label>
+						<select name="category" id="category"></select>
+						<button class="btn-submit" disabled>Valider</button>
+					</form>
+				</div>
 			</div>
 		</aside>
 		<div class="filters">

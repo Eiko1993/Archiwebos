@@ -21,9 +21,10 @@ form.addEventListener("submit", (e) => {
     })
     .then(function(response){
         if(response.ok){
-            console.log('ok');
-            window.localStorage.setItem("login",user);
-            window.location.href = "index.html";
+            response.json().then(function(data){
+                localStorage.setItem('token',data.token);
+                window.location.href = "index.html";
+            })
         } else {
             console.log('erreur');
             const error = document.createElement("p");
