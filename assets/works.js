@@ -8,7 +8,7 @@ const filters = document.querySelector(".filters");
 const projectsNew = document.querySelector(".projects");
 const logChange = document.querySelector(".login");
 let user = window.localStorage.getItem("login");
-
+const edit = document.querySelector(".edit");
 
 
 if (!user) {
@@ -100,14 +100,21 @@ filterCategory();
 
 if (localStorage.getItem('token')) {
     logChange.innerText = "logout";
-    /*const  projectsImg = document.createElement("i");
-    projectsImg.classList.add("fa-regular fa-pen-to-square");
-    projectsNew.appendChild(projectsImg);*/
+    const  projectsImg = document.createElement("i");
+    projectsImg.classList.add("fa-regular", "fa-pen-to-square");
+    projectsNew.appendChild(projectsImg);
     const projectChange = document.createElement("a");
     projectChange.innerText = "modifier";
     projectChange.setAttribute("href","#modal");
     projectChange.classList.add("js-modal");
     projectsNew.appendChild(projectChange);
+    filters.style.display = "none";
+    edit.style.display = "flex";
+    logChange.addEventListener("click", ()=>{
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+    })
+
 }
 
 let modal = null;
@@ -170,29 +177,35 @@ closeAdd.addEventListener("click",() => {
 
 })
 
-/*Suppression*/
+/*Suppression DELETE*/
 
 async function deleteWork(){
+    const token = localStorage.getItem('token');
     const trashAll = document.querySelectorAll(".fa-trash-can");
-
     trashAll.forEach(trash => {
-        trash.addEventListener("click",(e) => {
-            const id = trash.id;
+        trash.addEventListener("click",() => {
+            const id =trash.id;
             const init ={
                 method:"DELETE",
                 headers: {
-                    "Content-Type":"application/json"
+                    "accept": "*/*",
+                    "Authorization": "Bearer" + token
                 },
             }
             fetch("http://localhost:5678/api-docs/works/" +id,init)
             .then((response)=>{
                 if (!response.ok){
                     console.log("delete marche pas");
+                }else{
+                    console.log("delete marche");
                 }
             })
+
+            
         })
     })
 }
+
 
 /*Préview*/
 
@@ -200,7 +213,7 @@ const previewImg = document.querySelector(".containerFile img");
 const inputFile = document.querySelector(".containerFile input");
 const labelFile = document.querySelector(".containerFile label");
 const iconFile = document.querySelector(".containerFile .fa-image");
-const pFile = document.querySelector("containerFile p");
+const pFile = document.querySelector(".containerFile p");
 
 
 inputFile.addEventListener("change",()=>{
@@ -240,10 +253,12 @@ const category = document.querySelector(".form-modal #category");
 
 form.addEventListener("submit",async (e)=>{
     e.preventDefault();
+    const token = localStorage.getItem('token');
     const formData = {
         title:title.value,
+        categoryId:category.value,
         imageUrl:previewImg.src,
-        categoryId:{
+        category:{
             id:category.value,
             name:category.options[category.selectedIndex].textContent,
         },
@@ -252,13 +267,14 @@ form.addEventListener("submit",async (e)=>{
         method:"POST",
         body:JSON.stringify(formData),
         headers:{
-            "content-Type":"application/json"
+            "Accept":"application/json",
+            "Authorization": "Bearer" + token,
+            "Content-Type": "multiport/form-data",
         },
     })
     .then(response => response.json())
     .then(data =>{
         console.log(data);
-        displayWorks();
         back();
     })
 })
@@ -270,10 +286,11 @@ function verifyForm(){
     form.addEventListener("input",()=>{
         if (title.value !== "" && category.value !== "" && inputFile.value !== ""){
             validButton.classList.add("btn-submit-valid");
+            validButton.classList.remove("btn-submit");
             validButton.disabled = false;
-        }
-        else{
+        }else{
             validButton.classList.remove("btn-submit-valid");
+            validButton.classList.add("btn-submit");
             validButton.disabled = true;
         }
     })

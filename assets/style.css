@@ -57,8 +57,26 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
+
+.edit{
+	background-color: black;
+	color: white;
+	display:none;
+	flex-direction: column;
+	width: 100%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.intro{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
 section {
 	margin: 50px 0
 }
@@ -152,6 +170,12 @@ li:hover {
 	color: black;
 }
 
+.works-modal button{
+	display: flex;
+	justify-content: center;
+	align-self: center;
+}
+
 .button-edit{
 	display: flex;
 	justify-content: center;
@@ -166,6 +190,10 @@ li:hover {
 
 .btn-submit-valid{
 	background-color: #1D6154;
+	padding: 5px 10px;
+	border-radius: 25px;
+	border:none;
+	color: white;
 }
 
 .btn-back{
@@ -307,6 +335,12 @@ form{
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	border: none;
+	background-color: white;
+}
+
+.filters .button{
+	background-color: white;
 }
 
 .button{
@@ -316,11 +350,16 @@ form{
 	padding: 15px;
 	gap: 15px;
 	font-family: 'Syne';
+	color: #1D6154;
+	display: flex;
+	align-items: center;
+	margin-bottom: 50px;
 }
 
-.button-selected{
+.filters .button-selected{
 	background-color: #1D6154;
 	color: white;
+	
 }
 
 #login{
@@ -341,14 +380,37 @@ form{
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	width:300px;
 }
 
 #login label {
 	margin: 2em 0 1em 0;
+	text-align: left;
 }
 #login textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.errorMessage{
+	color: red;
+	padding-top: 20px;
+}
+
+.email{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding-left: 100px;
+}
+
+
+
+.password{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding-left: 100px;
 }
 
 .gallery img {

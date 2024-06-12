@@ -1,6 +1,7 @@
 /*Variables*/
-const log = document.querySelector("#login")
+const log = document.querySelector("#login");
 const form = document.querySelector("form");
+errorMessage = document.querySelector("#login p");
 /*Connexion*/
 
 form.addEventListener("submit", (e) => {
@@ -26,10 +27,8 @@ form.addEventListener("submit", (e) => {
                 window.location.href = "index.html";
             })
         } else {
-            console.log('erreur');
-            const error = document.createElement("p");
-            error.innerText ="Erreur dans l’identifiant ou le mot de passe";
-            error.appendChild(log);
+            console.log('Erreur dans l’identifiant ou le mot de passe');
+            errorMessage.textContent = 'Erreur dans l’identifiant ou le mot de passe';
         }
     })
     .catch(error =>

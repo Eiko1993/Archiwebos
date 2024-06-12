@@ -12,5 +12,4 @@ export async function getCategories(){
     return await categories.json();
 }
 
-/*Modifier*/
 
