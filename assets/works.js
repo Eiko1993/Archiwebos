@@ -25,6 +25,7 @@ async function displayWorks(){
         createWorksModal(work);
     });
     deleteWork();
+    addWorks();
 }
 displayWorks();
 
@@ -266,37 +267,42 @@ const title = document.querySelector(".form-modal #title");
 const category = document.querySelector(".form-modal #category");
 const file = document.querySelector('#file');
 
-form.addEventListener("submit",async (e)=>{
-    e.preventDefault();
-    
-    const token = localStorage.getItem('token');
-    const formWork = new FormData(form);
-    const idGallery = document.querySelectorAll('.gallery figure');
+async function addWorks(){
 
+    form.addEventListener("submit",async (e)=>{
+        e.preventDefault();
 
-    formWork.append('title', title.value);
-    formWork.append('category', category.value);
-    formWork.append('image', file.files[0]);
+        const token = localStorage.getItem('token');
+        const formWork = new FormData(form);
 
-   const response = await fetch("http://localhost:5678/api/works",{
-        method:"POST",
-        headers:{
-            "Accept":"application/json",
-            "Authorization": "Bearer" + token,
-            "Content-Type": "multiport/form-data",
-        },
-        body: formWork
-    })
-    .then(response => response.json());
-    if (response.ok){
-        console.log("Ajout réussi");
-        modalWorks.add();
-        if (idGallery[index]) {
-            idGallery[index].add();
+        formWork.append('title', title.value);
+        formWork.append('category', category.value);
+        formWork.append('image', file.files[0]);    
+    try {
+        const init = {
+            method:"POST",
+            headers:{
+                "Accept":"application/json",
+                "Authorization": "Bearer" + token,
+            },
+            body:formWork,
         }
-    };
-    back();
-})
+        const response = await fetch("http://localhost:5678/api/works");
+        if (!response.ok) {
+            console.log("L'ajout n'a pas réussi");
+        } else {
+            console.log("L'ajout a réussi");
+            galleryModal.append(init);
+            gallery.append(init);
+            
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'ajout':", error);
+    }
+        back();
+    })
+ 
+}
 
 /*Vérifier si tous les champs sont remplis*/
 
