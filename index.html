@@ -14,11 +14,11 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-<header>
 	<div class="edit">
 		<i class="fa-regular fa-pen-to-square"></i>
 		<h3>Mode édition</h3>
 	</div>
+<header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
@@ -52,16 +52,16 @@
 				<div class="works-modal">
 					<h2 class="edittitle">Galerie photo</h3>
 					<div class="image-edit"></div>
-					<button class="button button-selected button-edit">Ajouter une photo</button>
+					<button class="button-edit">Ajouter une photo</button>
 				</div>
 				<div class="form-modal">
 					<button class="btn-back fa-solid fa-arrow-left"></button>
 					<h2>Ajout photo</h2>
-					<form>
+					<form class="container">
 						<div class="containerFile">
 							<button class="js-modal-close  fa-solid fa-xmark"></button>
 							<span><i class="fa-regular fa-image"></i></span>
-							<label for="file">+Ajouter photo</label>
+							<label for="file">+ Ajouter photo</label>
 							<input type="file" id="file" name="image">
 							<img src="#" alt="Apercu de l'image">
 							<p>jpg,png: 4mo max</p>
@@ -105,6 +105,5 @@
 </footer>
 <script type="module" src="./assets/api.js" defer></script>
 <script type="module" src="./assets/works.js" defer></script>
-<script type="module" src="./assets/login.js" defer></script>
 </body>
 </html>

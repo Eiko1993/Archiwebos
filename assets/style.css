@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/
+/* http://meyerwe.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
 ol, ul {
 	list-style: none;
@@ -64,11 +65,11 @@ header {
 	background-color: black;
 	color: white;
 	display:none;
-	flex-direction: column;
 	width: 100%;
 	display: none;
 	justify-content: center;
 	align-items: center;
+	height: 59px;
 }
 
 .intro{
@@ -153,6 +154,13 @@ li:hover {
 	gap: 10px;
 }
 
+.modify{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+
 .modal{
 	position:fixed;
 	top:0;
@@ -168,6 +176,7 @@ li:hover {
 .edittitle{
 	font-family: "Work Sans";
 	color: black;
+
 }
 
 .works-modal button{
@@ -176,10 +185,28 @@ li:hover {
 	align-self: center;
 }
 
+.fa-arrow-left{
+	font-size:1.5em;
+}
+
 .button-edit{
+	margin-top: 30px;
+	margin-bottom: 10px;
+	width: 235px;
+	height: 36px;
+	border-radius: 60px;
+	background-color: #1D6154;
+	padding: 5px 10px;
+	border:none;
+	color: white;
+	border-radius: 60px;
+	border-color: #1D6154;
+	height: 37px;
+	font-family: 'Syne';
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	align-self: center;
 }
 
 .js-modal-close{
@@ -188,13 +215,7 @@ li:hover {
 	border-color: transparent;
 }
 
-.btn-submit-valid{
-	background-color: #1D6154;
-	padding: 5px 10px;
-	border-radius: 25px;
-	border:none;
-	color: white;
-}
+
 
 .btn-back{
 	background-color: white;
@@ -218,6 +239,32 @@ li:hover {
 	flex-direction: column;
 	align-items: center;
 	border-radius: 5px;
+
+}
+
+.form-modal h2{
+	color: black;
+	font-family: "Work Sans";
+}
+
+
+
+.container{
+	margin: 50px;
+}
+
+.container select{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.container input{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .image-edit{
@@ -281,11 +328,11 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-form{
+.form-modal form{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+	text-align: left;
 	height:80%;
 	width:80%;
 	gap:10px;
@@ -303,8 +350,17 @@ form{
 .containerFile label{
 	color:#306685;
 	background-color: #CBD6DC;
-	border-radius: 15px;
+	border-radius: 50px;
 	padding: 5px 10px;
+	font-family: "Work Sans";
+	font-weight: 500;
+	font-size: 14px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 170px;
+	height: 36px;
+	margin-bottom: 10px;
 }
 
 .containerFile input{
@@ -312,21 +368,63 @@ form{
 }
 
 .containerFile .fa-image{
-	font-size: 3rem;
+	font-size: 5rem;
+	height: 160px;
+	width: 420px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #B9C5CC;
+	padding: 0;
+}
+
+
+
+.containerFile p{
+	padding-bottom: 15px;
 }
 
 .containerFile img{
 	display:none;
-	max-width: 100%;
-	height:100%;
+	width:130px;
+	height:193px;
 }
 
 .btn-submit{
-	background-color: gray;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	background-color: #A7A7A7;
+	width: 235px;
+	height: 36px;
+	border-radius: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
 	padding: 5px 10px;
-	border-radius: 25px;
 	border:none;
 	color: white;
+	font-family: 'Syne';
+}
+
+.btn-submit-valid{
+	margin-top: 30px;
+	margin-bottom: 10px;
+	width: 235px;
+	height: 36px;
+	border-radius: 60px;
+	background-color: #1D6154;
+	padding: 5px 10px;
+	border:none;
+	color: white;
+	border-radius: 60px;
+	border-color: #1D6154;
+	height: 37px;
+	font-family: 'Syne';
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
 }
 
 .filters {
@@ -337,6 +435,7 @@ form{
 	justify-content: center;
 	border: none;
 	background-color: white;
+	gap:10px;
 }
 
 .filters .button{
@@ -354,6 +453,7 @@ form{
 	display: flex;
 	align-items: center;
 	margin-bottom: 50px;
+	border-style: solid;
 }
 
 .filters .button-selected{
@@ -365,7 +465,7 @@ form{
 #login{
 	margin: auto;
 	text-align: center;
-	padding-top: 150px;
+	padding-top: 100px;
 	padding-bottom: 150px;
 }
 #login form {
@@ -373,15 +473,10 @@ form{
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
-#login input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	width:300px;
-}
+
 
 #login label {
 	margin: 2em 0 1em 0;
@@ -401,16 +496,41 @@ form{
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	padding-left: 100px;
+	
 }
 
+.email input{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	width:380px;
+}
 
 
 .password{
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	padding-left: 100px;
+}
+
+.password input{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	width:380px;
+}
+
+.connection{
+	width:180px;
+	height: 36px;
+	border: none;
+
+}
+
+.forgot{
+	text-decoration: underline;
 }
 
 .gallery img {

@@ -45,16 +45,18 @@ function createWorks(work){
 function createWorksModal(work){
     const figure = document.createElement("figure");
     const img = document.createElement("img");
-    const span = document.createElement("span");
+    const button = document.createElement("button");
     const trash = document.createElement("i");
-    span.classList.add("delet");
+
+    button.classList.add("delet");
+    button.setAttribute('data-id', work.id);
     trash.classList.add("fa-solid","fa-trash-can");
-    trash.id = figure.id;
+    
     img.src = work.imageUrl;
     figure.id = work.id;
     figure.classList.add("fig");
-    span.appendChild(trash);
-    figure.appendChild(span);
+    button.appendChild(trash);
+    figure.appendChild(button);
     figure.appendChild(img);
     galleryModal.appendChild(figure);
 
@@ -107,6 +109,8 @@ if (localStorage.getItem('token')) {
     projectChange.innerText = "modifier";
     projectChange.setAttribute("href","#modal");
     projectChange.classList.add("js-modal");
+    projectChange.classList.add("modify");
+    projectsImg.classList.add("modify");
     projectsNew.appendChild(projectChange);
     filters.style.display = "none";
     edit.style.display = "flex";
@@ -180,32 +184,42 @@ closeAdd.addEventListener("click",() => {
 /*Suppression DELETE*/
 
 async function deleteWork(){
-    const token = localStorage.getItem('token');
-    const trashAll = document.querySelectorAll(".fa-trash-can");
-    trashAll.forEach(trash => {
-        trash.addEventListener("click",() => {
-            const id =trash.id;
+
+    const btnDeletes = document.querySelectorAll('.delet');
+    const idGallery = document.querySelectorAll('.gallery figure');
+
+    btnDeletes.forEach((btnDelete, index) => {
+        btnDelete.addEventListener("click", async () => {
+
+            const idDelete = btnDelete.dataset.id;
+            const figure = btnDelete.parentNode;
+            const token = localStorage.getItem('token');
+
             const init ={
                 method:"DELETE",
                 headers: {
-                    "accept": "*/*",
-                    "Authorization": "Bearer" + token
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + token
                 },
             }
-            fetch("http://localhost:5678/api-docs/works/" +id,init)
-            .then((response)=>{
-                if (!response.ok){
-                    console.log("delete marche pas");
-                }else{
-                    console.log("delete marche");
+            try {
+                const response = await fetch(`http://localhost:5678/api/works/${idDelete}`, init);
+                console.log(`Statut de la réponse: ${response.status}`);
+                if (!response.ok) {
+                    console.log("La suppression n'a pas réussi");
+                } else {
+                    console.log("La suppression a réussi");
+                    figure.remove();
+                    if (idGallery[index]) {
+                        idGallery[index].remove();
+                    }
                 }
-            })
-
-            
+            } catch (error) {
+                console.error("Erreur lors de la suppression:", error);
+            }
         })
     })
 }
-
 
 /*Préview*/
 
@@ -250,33 +264,38 @@ displayCategoriesModal();
 const form = document.querySelector(".form-modal form");
 const title = document.querySelector(".form-modal #title");
 const category = document.querySelector(".form-modal #category");
+const file = document.querySelector('#file');
 
 form.addEventListener("submit",async (e)=>{
     e.preventDefault();
+    
     const token = localStorage.getItem('token');
-    const formData = {
-        title:title.value,
-        categoryId:category.value,
-        imageUrl:previewImg.src,
-        category:{
-            id:category.value,
-            name:category.options[category.selectedIndex].textContent,
-        },
-    };
-    fetch("http://localhost:5678/api/works",{
+    const formWork = new FormData(form);
+    const idGallery = document.querySelectorAll('.gallery figure');
+
+
+    formWork.append('title', title.value);
+    formWork.append('category', category.value);
+    formWork.append('image', file.files[0]);
+
+   const response = await fetch("http://localhost:5678/api/works",{
         method:"POST",
-        body:JSON.stringify(formData),
         headers:{
             "Accept":"application/json",
             "Authorization": "Bearer" + token,
             "Content-Type": "multiport/form-data",
         },
+        body: formWork
     })
-    .then(response => response.json())
-    .then(data =>{
-        console.log(data);
-        back();
-    })
+    .then(response => response.json());
+    if (response.ok){
+        console.log("Ajout réussi");
+        modalWorks.add();
+        if (idGallery[index]) {
+            idGallery[index].add();
+        }
+    };
+    back();
 })
 
 /*Vérifier si tous les champs sont remplis*/

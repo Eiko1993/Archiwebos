@@ -11,5 +11,3 @@ export async function getCategories(){
     const categories = await fetch("http://localhost:5678/api/categories");
     return await categories.json();
 }
-
-
