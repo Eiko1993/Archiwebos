@@ -10,7 +10,6 @@ const logChange = document.querySelector(".login");
 let user = window.localStorage.getItem("login");
 const edit = document.querySelector(".edit");
 
-
 if (!user) {
     console.log("Oups c'est vide");
 }
@@ -319,8 +318,7 @@ function verifyForm(){
             validButton.disabled = true;
         }
     })
-    
-
 
 }
 verifyForm();
+
