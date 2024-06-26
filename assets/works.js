@@ -86,6 +86,7 @@ async function filterCategory(){
             if (btnId !== "0") {
                 const projectsCategory = projects.filter((work) => {
                     return work.categoryId == btnId;
+
                 });
                 projectsCategory.forEach(work => {
                     createWorks(work);
@@ -93,6 +94,7 @@ async function filterCategory(){
             } else {
                 displayWorks();
             }
+
         })
     })
 }
@@ -266,41 +268,42 @@ const title = document.querySelector(".form-modal #title");
 const category = document.querySelector(".form-modal #category");
 const file = document.querySelector('#file');
 
-async function addWorks(){
 
-    form.addEventListener("submit",async (e)=>{
+async function addWorks() {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const token = localStorage.getItem('token');
         const formWork = new FormData(form);
 
-        formWork.append('title', title.value);
-        formWork.append('category', category.value);
-        formWork.append('image', file.files[0]);    
-    try {
-        const init = {
-            method:"POST",
-            headers:{
-                "Accept":"application/json",
-                "Authorization": "Bearer" + token,
-            },
-            body:formWork,
+        try {
+            const init = {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                },
+                body: formWork,
+            };
+
+            const response = await fetch("http://localhost:5678/api/works", init);
+            if (!response.ok) {
+                console.log("L'ajout n'a pas réussi");
+            } else {
+                console.log("L'ajout a réussi");
+                const newWork = await response.json(); // Récupérer la réponse JSON
+
+                // Assurez-vous que `displayWorks()` est bien implémenté pour ajouter le nouvel élément
+                gallery.innerHTML="";
+                galleryModal.innerHTML="";
+
+                displayWorks(newWork); // Passer le nouvel élément à la fonction displayWorks
+                file.innerHTML="";
+            }
+        } catch (error) {
+            console.error("Erreur lors de l'ajout:", error);
         }
-        const response = await fetch("http://localhost:5678/api/works");
-        if (!response.ok) {
-            console.log("L'ajout n'a pas réussi");
-        } else {
-            console.log("L'ajout a réussi");
-            galleryModal.append(init);
-            gallery.append(init);
-            
-        }
-    } catch (error) {
-        console.error("Erreur lors de l'ajout':", error);
-    }
         back();
-    })
- 
+    });
 }
 
 /*Vérifier si tous les champs sont remplis*/
