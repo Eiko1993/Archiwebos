@@ -9,6 +9,7 @@ const projectsNew = document.querySelector(".projects");
 const logChange = document.querySelector(".login");
 let user = window.localStorage.getItem("login");
 const edit = document.querySelector(".edit");
+let i = 0;
 
 if (!user) {
     console.log("Oups c'est vide");
@@ -24,7 +25,7 @@ async function displayWorks(){
         createWorksModal(work);
     });
     deleteWork();
-    addWorks();
+
 }
 displayWorks();
 
@@ -70,10 +71,18 @@ async function displayCategories() {
         btn.textContent = category.name;
         btn.id = category.id;
         btn.classList.add("button");
+        btn.addEventListener("click", () => {
+            document.querySelectorAll('.button').forEach(button => {
+                button.classList.remove("button-selected");
+            });
+            btn.classList.add("button-selected"); 
+        });
+
         filters.appendChild(btn);
     })
 }
 displayCategories();
+
 
 /*filter par categories*/
 async function filterCategory(){
@@ -163,6 +172,7 @@ const modalWorks = document.querySelector('.works-modal');
 const formModal = document.querySelector('.form-modal');
 const btnBack = document.querySelector('.btn-back');
 const closeAdd = document.querySelector(".form-modal .fa-xmark");
+const formReset = document.getElementById("form");
 
 btnAddWorks.addEventListener('click', () => {
     modalWorks.style.display = "none";
@@ -297,7 +307,7 @@ async function addWorks() {
                 galleryModal.innerHTML="";
 
                 displayWorks(newWork); // Passer le nouvel élément à la fonction displayWorks
-                file.innerHTML="";
+                formReset.reset();
             }
         } catch (error) {
             console.error("Erreur lors de l'ajout:", error);
@@ -305,7 +315,7 @@ async function addWorks() {
         back();
     });
 }
-
+addWorks();
 /*Vérifier si tous les champs sont remplis*/
 
 function verifyForm(){
@@ -324,4 +334,5 @@ function verifyForm(){
 
 }
 verifyForm();
+
 
