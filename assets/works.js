@@ -9,7 +9,6 @@ const projectsNew = document.querySelector(".projects");
 const logChange = document.querySelector(".login");
 let user = window.localStorage.getItem("login");
 const edit = document.querySelector(".edit");
-let i = 0;
 
 if (!user) {
     console.log("Oups c'est vide");
@@ -75,7 +74,7 @@ async function displayCategories() {
             document.querySelectorAll('.button').forEach(button => {
                 button.classList.remove("button-selected");
             });
-            btn.classList.add("button-selected"); 
+            btn.classList.add("button-selected");
         });
 
         filters.appendChild(btn);
