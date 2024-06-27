@@ -302,12 +302,18 @@ async function addWorks() {
                 console.log("L'ajout a réussi");
                 const newWork = await response.json(); // Récupérer la réponse JSON
 
-                // Assurez-vous que `displayWorks()` est bien implémenté pour ajouter le nouvel élément
+                
                 gallery.innerHTML="";
                 galleryModal.innerHTML="";
 
                 displayWorks(newWork); // Passer le nouvel élément à la fonction displayWorks
                 formReset.reset();
+
+                previewImg.src = "";
+                previewImg.style.display = "none";
+                labelFile.style.display = "flex";
+                iconFile.style.display = "flex";
+                pFile.style.display = "flex";
             }
         } catch (error) {
             console.error("Erreur lors de l'ajout:", error);
